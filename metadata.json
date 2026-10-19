@@ -1,0 +1,6 @@
+{
+  "name": "Bagged. — Handmade Leather & Crochet Bags",
+  "description": "Handmade leather bags, crochet bags, and custom orders. Drop pictures or voice notes for your custom bag, or shop ready-made bags. Direct WhatsApp & Email checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

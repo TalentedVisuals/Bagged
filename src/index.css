@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+@theme {
+  /* Warm Earthy Color Tokens: Beige, Cream, Earthy Browns with Red/Orange Urgency */
+  --color-cream-canvas: #f7f4ed;
+  --color-warm-bone: #ffffff;
+  --color-sand-beige: #eee7db;
+  --color-soft-border: #e2dad0;
+  --color-deep-espresso: #231815;
+  --color-saddle-brown: #5c3d2e;
+  --color-walnut-brown: #6a4632;
+  --color-taupe-ash: #8c7a6b;
+  --color-terracotta-red: #c84224;
+  --color-burnt-orange: #d9532f;
+  --color-amber-gold: #d97706;
+
+  /* Typography Pairing: Lora (Headings/Display) + Karla (Body/UI) - Minus the Logo */
+  --font-serif: 'Lora', Georgia, serif;
+  --font-display: 'Lora', Georgia, serif;
+  --font-sans: 'Karla', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Karla', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-logo: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: #f7f4ed;
+    color: #231815;
+    font-family: 'Karla', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Editorial & Section Headings in Lora */
+  h1, h2, h3, h4, h5, h6, .font-serif, .font-display, .font-lora, .editorial-heading {
+    font-family: 'Lora', Georgia, serif;
+    letter-spacing: -0.015em;
+  }
+
+  /* Minus the Logo: brand logo retains crisp modern geometric sans */
+  .brand-logo, .brand-logo * {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  }
+
+  ::selection {
+    background-color: #c84224;
+    color: #ffffff;
+  }
+}
+
+/* Explicit Typography Utilities */
+.font-lora {
+  font-family: 'Lora', Georgia, serif;
+}
+
+.font-karla {
+  font-family: 'Karla', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.font-logo {
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Custom marquee */
+@keyframes marqueeSlow {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-slow {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marqueeSlow 32s linear infinite;
+}
+
+.animate-marquee-slow:hover {
+  animation-play-state: paused;
+}
+
+/* 3D Interactive Parallax Card (9-cell CSS Grid Technique) with Realistic Drop Shadows */
+.hover-3d {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.hover-3d > :first-child {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+/* 8 empty divs positioning over the 3x3 grid cells */
+.hover-3d > div:nth-child(2) { grid-column: 1; grid-row: 1; z-index: 10; }
+.hover-3d > div:nth-child(3) { grid-column: 2; grid-row: 1; z-index: 10; }
+.hover-3d > div:nth-child(4) { grid-column: 3; grid-row: 1; z-index: 10; }
+.hover-3d > div:nth-child(5) { grid-column: 1; grid-row: 2; z-index: 10; }
+.hover-3d > div:nth-child(6) { grid-column: 3; grid-row: 2; z-index: 10; }
+.hover-3d > div:nth-child(7) { grid-column: 1; grid-row: 3; z-index: 10; }
+.hover-3d > div:nth-child(8) { grid-column: 2; grid-row: 3; z-index: 10; }
+.hover-3d > div:nth-child(9) { grid-column: 3; grid-row: 3; z-index: 10; }
+
+/* Dynamic 3D tilt and intensified drop shadow on hovering any of the 8 grid zones */
+.hover-3d:has(> div:nth-child(2):hover) > :first-child {
+  transform: rotateX(11deg) rotateY(-11deg) translateZ(18px) translateY(-6px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 24px 48px -10px rgba(35,24,21,0.22), 0 12px 24px -6px rgba(35,24,21,0.12), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(3):hover) > :first-child {
+  transform: rotateX(11deg) rotateY(0deg) translateZ(18px) translateY(-6px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 24px 48px -10px rgba(35,24,21,0.22), 0 12px 24px -6px rgba(35,24,21,0.12), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(4):hover) > :first-child {
+  transform: rotateX(11deg) rotateY(11deg) translateZ(18px) translateY(-6px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 24px 48px -10px rgba(35,24,21,0.22), 0 12px 24px -6px rgba(35,24,21,0.12), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(5):hover) > :first-child {
+  transform: rotateX(0deg) rotateY(-11deg) translateZ(18px) translateY(-5px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 24px 48px -10px rgba(35,24,21,0.22), 0 12px 24px -6px rgba(35,24,21,0.12), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(6):hover) > :first-child {
+  transform: rotateX(0deg) rotateY(11deg) translateZ(18px) translateY(-5px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 24px 48px -10px rgba(35,24,21,0.22), 0 12px 24px -6px rgba(35,24,21,0.12), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(7):hover) > :first-child {
+  transform: rotateX(-11deg) rotateY(-11deg) translateZ(18px) translateY(-4px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 28px 52px -10px rgba(35,24,21,0.24), 0 14px 28px -6px rgba(35,24,21,0.14), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(8):hover) > :first-child {
+  transform: rotateX(-11deg) rotateY(0deg) translateZ(18px) translateY(-4px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 28px 52px -10px rgba(35,24,21,0.24), 0 14px 28px -6px rgba(35,24,21,0.14), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+.hover-3d:has(> div:nth-child(9):hover) > :first-child {
+  transform: rotateX(-11deg) rotateY(11deg) translateZ(18px) translateY(-4px) scale3d(1.025, 1.025, 1.025);
+  box-shadow: 0 28px 52px -10px rgba(35,24,21,0.24), 0 14px 28px -6px rgba(35,24,21,0.14), 0 0 0 1px rgba(255,255,255,0.8) inset !important;
+}
+
+/* 3D Pop floating elements within the card */
+.pop-3d-icon {
+  transform: translateZ(28px);
+  transform-style: preserve-3d;
+}
+
+.pop-3d-text {
+  transform: translateZ(16px);
+  transform-style: preserve-3d;
+}
+
+/* Warm Earthy Card with Bone White surface and soft border */
+.earth-card {
+  background-color: #ffffff;
+  border: 1px solid #e2dad0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(35, 24, 21, 0.04), 0 4px 12px rgba(35, 24, 21, 0.02);
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.earth-card:hover {
+  border-color: #c84224;
+  box-shadow: 0 4px 20px rgba(35, 24, 21, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Primary Urgency / Sales Pill Button (Terracotta Red) */
+.btn-urgency-red {
+  border-radius: 9999px;
+  background-color: #c84224;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  padding: 9px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 180ms ease;
+  box-shadow: 0 2px 10px rgba(200, 66, 36, 0.28);
+}
+
+.btn-urgency-red:hover {
+  background-color: #b0361c;
+  box-shadow: 0 4px 16px rgba(200, 66, 36, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Deep Espresso Pill Button (Primary Brand Action) */
+.btn-espresso {
+  border-radius: 9999px;
+  background-color: #231815;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  padding: 9px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 180ms ease;
+  box-shadow: 0 2px 8px rgba(35, 24, 21, 0.15);
+}
+
+.btn-espresso:hover {
+  background-color: #3b2823;
+  transform: translateY(-1px);
+}
+
+/* Soft Sand Beige Outline Button */
+.btn-sand-outline {
+  border-radius: 9999px;
+  background-color: #ffffff;
+  border: 1px solid #e2dad0;
+  color: #231815;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  padding: 8px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.btn-sand-outline:hover {
+  border-color: #231815;
+  background-color: #eee7db;
+}
+
+/* Urgency Pulse Tag */
+.tag-urgency {
+  background-color: #fbf0ed;
+  border: 1px solid #f2cfc7;
+  color: #c84224;
+  font-weight: 600;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Earthy Input Field */
+.input-earth {
+  background-color: #ffffff;
+  border: 1px solid #e2dad0;
+  border-radius: 8px;
+  color: #231815;
+  font-size: 13px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.input-earth:focus {
+  border-color: #c84224;
+  box-shadow: 0 0 0 2px rgba(200, 66, 36, 0.15);
+}
+
+/* Warm Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f7f4ed;
+}
+::-webkit-scrollbar-thumb {
+  background: #d6cbbe;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8c7a6b;
+}
