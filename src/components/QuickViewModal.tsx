@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Check, MessageSquare, Plus, ShieldCheck, Flame } from 'lucide-react';
 import { Product, Currency } from '../types';
 import { formatCurrency } from '../utils/currency';
@@ -21,6 +21,28 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
 }) => {
   const [added, setAdded] = useState(false);
 
+  // Close on Escape key press
+  useEffect(() => {
+    if (!product) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [product, onClose]);
+
+  // Lock background scroll when modal is open
+  useEffect(() => {
+    if (!product) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [product]);
+
   if (!product) return null;
 
   const handleAdd = () => {
@@ -34,24 +56,57 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   )}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#231815]/50 backdrop-blur-sm animate-in fade-in duration-150">
-      
-      {/* Background click to dismiss */}
-      <div className="absolute inset-0" onClick={onClose} />
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#231815]/65 backdrop-blur-sm animate-in fade-in duration-150 overflow-y-auto cursor-pointer"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-product-title"
+    >
+      {/* Background click catcher layer */}
+      <div className="fixed inset-0" onClick={onClose} aria-hidden="true" />
+
+      {/* Prominent Floating Close Button on Mobile (Fixed in top right corner so it never scrolls away) */}
+      <button
+        onClick={onClose}
+        className="fixed top-3 right-3 sm:hidden z-50 w-11 h-11 rounded-full bg-[#231815] text-[#ffffff] shadow-[0_6px_24px_rgba(0,0,0,0.5)] border-2 border-[#ffffff] flex items-center justify-center active:scale-95 transition-all cursor-pointer group"
+        aria-label="Close product details"
+        title="Close"
+      >
+        <X className="w-6 h-6 text-white stroke-[2.5] group-hover:rotate-90 transition-transform duration-200" />
+      </button>
 
       {/* Earthy Warm Dialog on Bone White */}
-      <div className="relative w-full max-w-3xl bg-[#ffffff] rounded-[12px] border border-[#e2dad0] text-[#231815] overflow-y-auto max-h-[92vh] z-10 p-6 sm:p-8 shadow-[0_16px_48px_rgba(35,24,21,0.18)]">
+      <div
+        className="relative w-full max-w-3xl bg-[#ffffff] rounded-[14px] border border-[#e2dad0] text-[#231815] overflow-y-auto max-h-[88vh] sm:max-h-[92vh] z-10 p-5 sm:p-8 shadow-[0_24px_64px_rgba(35,24,21,0.25)] cursor-default my-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
         
-        {/* Close Button */}
+        {/* Prominent Desktop Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#eee7db] hover:bg-[#e2dad0] flex items-center justify-center text-[#5c3d2e] hover:text-[#231815] transition cursor-pointer"
-          aria-label="Close"
+          className="hidden sm:flex absolute top-5 right-5 z-20 w-11 h-11 rounded-full bg-[#231815] text-[#ffffff] hover:bg-[#c84224] active:scale-95 items-center justify-center shadow-[0_4px_18px_rgba(0,0,0,0.3)] border-2 border-[#ffffff] transition-all cursor-pointer group"
+          aria-label="Close product details"
+          title="Close (Esc)"
         >
-          <X className="w-4 h-4" />
+          <X className="w-5 h-5 text-white stroke-[2.5] group-hover:rotate-90 transition-transform duration-200" />
         </button>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        {/* Mobile Header Bar with prominent close badge */}
+        <div className="flex sm:hidden items-center justify-between pb-3.5 mb-3 border-b border-[#eee7db]">
+          <span className="text-[12px] font-semibold text-[#5c3d2e] tracking-wide uppercase">
+            Bag Details & Specs
+          </span>
+          <button
+            onClick={onClose}
+            className="text-[12px] font-semibold text-[#c84224] bg-[#fbf0ed] hover:bg-[#f2cfc7] px-3 py-1 rounded-full border border-[#f2cfc7] flex items-center gap-1 active:scale-95 transition cursor-pointer"
+          >
+            <X className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span>Close (✕)</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
           
           {/* Image Container */}
           <div className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db]">
@@ -76,7 +131,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               <span className="text-[#c84224] font-semibold">{product.batch}</span>
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-light tracking-tight text-[#231815]">
+            <h3 id="modal-product-title" className="text-xl sm:text-2xl font-light tracking-tight text-[#231815]">
               {product.title}
             </h3>
 
@@ -173,6 +228,15 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                 <MessageSquare className="w-3.5 h-3.5 text-[#c84224]" />
                 <span>Inquire directly on WhatsApp</span>
               </a>
+
+              {/* Explicit Dismiss / Close Button */}
+              <button
+                onClick={onClose}
+                className="w-full py-2 rounded-full border border-[#d6cbbe] hover:border-[#c84224] text-[#5c3d2e] hover:text-[#c84224] hover:bg-[#eee7db] text-[12px] font-semibold transition cursor-pointer flex items-center justify-center gap-1.5"
+              >
+                <X className="w-3.5 h-3.5 stroke-[2.5]" />
+                <span>Close Details</span>
+              </button>
             </div>
 
           </div>

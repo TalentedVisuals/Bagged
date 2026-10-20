@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Clock } from 'lucide-react';
 import { Product } from '../types';
+import { CATALOG_PRODUCTS } from '../data/products';
 import { formatCurrency } from '../utils/currency';
 import { GuaranteesBanner } from './GuaranteesBanner';
 
 interface HeroProps {
   featuredProduct: Product;
+  showcaseProducts?: Product[];
   onQuickAdd: (product: Product) => void;
   onOpenQuickView: (product: Product) => void;
 }
@@ -46,8 +48,13 @@ const HERO_SLIDES: HeroSlide[] = [
 
 export const Hero: React.FC<HeroProps> = ({
   featuredProduct,
+  showcaseProducts,
   onOpenQuickView,
 }) => {
+  const bag1 = showcaseProducts?.[0] || featuredProduct || CATALOG_PRODUCTS[0];
+  const bag2 = showcaseProducts?.[1] || CATALOG_PRODUCTS[1];
+  const bag3 = showcaseProducts?.[2] || CATALOG_PRODUCTS[2];
+
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
@@ -174,10 +181,13 @@ export const Hero: React.FC<HeroProps> = ({
         
         {/* Card 1: Featured Bucket Bag with Low Stock Urgency */}
         <div className="earth-card p-3.5 flex flex-col justify-between group">
-          <div className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db]">
+          <div
+            onClick={() => onOpenQuickView(bag1)}
+            className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db] cursor-pointer"
+          >
             <img
-              src={featuredProduct.image}
-              alt={featuredProduct.title}
+              src={bag1.image}
+              alt={bag1.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               referrerPolicy="no-referrer"
             />
@@ -187,19 +197,28 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
 
-          <div className="pt-3.5 px-1 pb-1 flex items-center justify-between">
-            <div>
-              <h3 className="text-[15px] font-medium font-serif text-[#231815] tracking-tight block">
-                {featuredProduct.title}
+          <div className="pt-3.5 px-1 pb-1 flex items-center justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <h3
+                onClick={() => onOpenQuickView(bag1)}
+                className="text-[15px] font-medium font-serif text-[#231815] tracking-tight block truncate cursor-pointer hover:text-[#c84224] transition-colors"
+              >
+                {bag1.title}
               </h3>
-              <span className="text-[12px] text-[#6a4632] mt-0.5 block">
-                {featuredProduct.materials}
-              </span>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="text-[12px] text-[#6a4632] truncate">
+                  {bag1.materials.split(',')[0]}
+                </span>
+                <span className="text-[12px] font-bold text-[#c84224] tabular-nums shrink-0">
+                  · {formatCurrency(bag1.priceNGN, 'NGN')}
+                </span>
+              </div>
             </div>
 
             <button
-              onClick={() => onOpenQuickView(featuredProduct)}
-              className="btn-sand-outline text-[12px] py-1 px-3"
+              onClick={() => onOpenQuickView(bag1)}
+              className="btn-sand-outline text-[12px] py-1 px-3 cursor-pointer hover:border-[#c84224] hover:text-[#c84224] hover:bg-[#eee7db] transition shrink-0"
+              aria-label={`View details of ${bag1.title}`}
             >
               Details
             </button>
@@ -208,10 +227,13 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Card 2: Alaafia Crochet Knit Shoulder Bag (Center Elevated with Terracotta Sales Badge) */}
         <div className="earth-card p-3.5 flex flex-col justify-between group border-[#c84224]/40 bg-[#fffdfa] shadow-md md:-translate-y-1">
-          <div className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db]">
+          <div
+            onClick={() => onOpenQuickView(bag2)}
+            className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db] cursor-pointer"
+          >
             <img
-              src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=1000&q=80"
-              alt="Alaafia Crochet Shoulder Bag"
+              src={bag2.image}
+              alt={bag2.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               referrerPolicy="no-referrer"
             />
@@ -221,49 +243,76 @@ export const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
 
-          <div className="pt-3.5 px-1 pb-1 flex items-center justify-between">
-            <div>
-              <h3 className="text-[15px] font-medium font-serif text-[#231815] tracking-tight block">
-                Alaafia Crochet Shoulder Bag
+          <div className="pt-3.5 px-1 pb-1 flex items-center justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <h3
+                onClick={() => onOpenQuickView(bag2)}
+                className="text-[15px] font-medium font-serif text-[#231815] tracking-tight block truncate cursor-pointer hover:text-[#c84224] transition-colors"
+              >
+                {bag2.title}
               </h3>
-              <span className="text-[12px] text-[#6a4632] mt-0.5 block">
-                Hand-Knitted Cotton · Saddle Cowhide
-              </span>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="text-[12px] text-[#6a4632] truncate">
+                  {bag2.materials.split(',')[0]}
+                </span>
+                <span className="text-[12px] font-bold text-[#c84224] tabular-nums shrink-0">
+                  · {formatCurrency(bag2.priceNGN, 'NGN')}
+                </span>
+              </div>
             </div>
 
-            <span className="text-[14px] font-bold text-[#c84224] tabular-nums">
-              {formatCurrency(95000, 'NGN')}
-            </span>
+            <button
+              onClick={() => onOpenQuickView(bag2)}
+              className="btn-sand-outline text-[12px] py-1 px-3 cursor-pointer hover:border-[#c84224] hover:text-[#c84224] hover:bg-[#eee7db] transition shrink-0"
+              aria-label={`View details of ${bag2.title}`}
+            >
+              Details
+            </button>
           </div>
         </div>
 
-        {/* Card 3: Eko Flap Bag Crossbody */}
+        {/* Card 3: Barakah Leather & Raffia Tote */}
         <div className="earth-card p-3.5 flex flex-col justify-between group">
-          <div className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db]">
+          <div
+            onClick={() => onOpenQuickView(bag3)}
+            className="relative aspect-square w-full overflow-hidden rounded-[8px] bg-[#eee7db] cursor-pointer"
+          >
             <img
-              src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=1000&q=80"
-              alt="Eko Minimalist Crossbody"
+              src={bag3.image}
+              alt={bag3.title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-3 left-3 bg-[#ffffff]/90 border border-[#e2dad0] text-[#5c3d2e] rounded-full px-2.5 py-0.5 text-[11px] font-medium shadow-sm">
-              <span>Custom Order Available</span>
+              <span>Limited Piece · Best Seller</span>
             </div>
           </div>
 
-          <div className="pt-3.5 px-1 pb-1 flex items-center justify-between">
-            <div>
-              <h3 className="text-[15px] font-medium font-serif text-[#231815] tracking-tight block">
-                Eko Flap Bag Crossbody
+          <div className="pt-3.5 px-1 pb-1 flex items-center justify-between gap-2">
+            <div className="min-w-0 flex-1">
+              <h3
+                onClick={() => onOpenQuickView(bag3)}
+                className="text-[15px] font-medium font-serif text-[#231815] tracking-tight block truncate cursor-pointer hover:text-[#c84224] transition-colors"
+              >
+                {bag3.title}
               </h3>
-              <span className="text-[12px] text-[#6a4632] mt-0.5 block">
-                Full-Grain Bovine · Cast Brass
-              </span>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="text-[12px] text-[#6a4632] truncate">
+                  {bag3.materials.split(',')[0]}
+                </span>
+                <span className="text-[12px] font-bold text-[#231815] tabular-nums shrink-0">
+                  · {formatCurrency(bag3.priceNGN, 'NGN')}
+                </span>
+              </div>
             </div>
 
-            <span className="text-[14px] font-bold text-[#231815] tabular-nums">
-              {formatCurrency(85000, 'NGN')}
-            </span>
+            <button
+              onClick={() => onOpenQuickView(bag3)}
+              className="btn-sand-outline text-[12px] py-1 px-3 cursor-pointer hover:border-[#c84224] hover:text-[#c84224] hover:bg-[#eee7db] transition shrink-0"
+              aria-label={`View details of ${bag3.title}`}
+            >
+              Details
+            </button>
           </div>
         </div>
 

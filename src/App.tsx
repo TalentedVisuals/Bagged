@@ -126,6 +126,7 @@ export default function App() {
         {/* Hero Section */}
         <Hero
           featuredProduct={CATALOG_PRODUCTS[0]}
+          showcaseProducts={CATALOG_PRODUCTS.slice(0, 3)}
           onQuickAdd={handleAddToCart}
           onOpenQuickView={setQuickViewProduct}
         />
