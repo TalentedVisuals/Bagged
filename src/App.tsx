@@ -9,10 +9,11 @@ import { ConfirmationModal } from './components/ConfirmationModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CareAndFaq } from './components/CareAndFaq';
 import { Footer } from './components/Footer';
+import { ScrollNavigationButton } from './components/ScrollNavigationButton';
 import { CATALOG_PRODUCTS } from './data/products';
 import { Product, CartItem, Currency, BespokeCommission } from './types';
 import { DEFAULT_ADMIN_WHATSAPP, DEFAULT_ADMIN_EMAIL } from './utils/whatsapp';
-import { ShoppingBag, Flame } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 
 export default function App() {
   // Admin contact endpoints
@@ -191,26 +192,22 @@ export default function App() {
         adminEmail={adminEmail}
       />
 
-      {/* Mobile Floating Action Bar */}
-      <div className="lg:hidden fixed bottom-4 inset-x-4 z-30 flex items-center gap-3">
-        <a
-          href="#commission"
-          className="flex-1 py-3 px-5 rounded-full bg-[#ffffff] text-[#231815] border border-[#e2dad0] shadow-[0_4px_16px_rgba(35,24,21,0.1)] text-[13px] font-semibold flex items-center justify-center gap-2 hover:bg-[#eee7db] transition-all cursor-pointer"
-        >
-          <Flame className="w-3.5 h-3.5 text-[#c84224]" />
-          <span>Custom Commission</span>
-        </a>
-
-        {totalCartCount > 0 && (
+      {/* Mobile Floating Cart Button when items exist */}
+      {totalCartCount > 0 && (
+        <div className="lg:hidden fixed bottom-5 left-4 z-40">
           <button
             onClick={() => setIsCartOpen(true)}
-            className="py-3 px-5 rounded-full bg-[#c84224] text-[#ffffff] shadow-[0_4px_20px_rgba(200,66,36,0.35)] text-[13px] font-semibold flex items-center gap-2 hover:bg-[#b0361c] transition-all cursor-pointer"
+            aria-label={`Open shopping bag with ${totalCartCount} items`}
+            className="py-3 px-4.5 rounded-full bg-[#c84224] text-[#ffffff] shadow-[0_6px_24px_rgba(200,66,36,0.45)] text-[13px] font-semibold flex items-center gap-2 hover:bg-[#b0361c] active:scale-95 transition-all cursor-pointer border border-[#e5775f]/30"
           >
             <ShoppingBag className="w-4 h-4 text-white" />
             <span>Bag ({totalCartCount})</span>
           </button>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* Floating Scroll-to-Top / Scroll-to-Bottom Button (Visible on all views) */}
+      <ScrollNavigationButton />
 
     </div>
   );
