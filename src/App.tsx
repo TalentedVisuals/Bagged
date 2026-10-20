@@ -12,7 +12,7 @@ import { Footer } from './components/Footer';
 import { CATALOG_PRODUCTS } from './data/products';
 import { Product, CartItem, Currency, BespokeCommission } from './types';
 import { DEFAULT_ADMIN_WHATSAPP, DEFAULT_ADMIN_EMAIL } from './utils/whatsapp';
-import { ShoppingBag, Sparkles, Flame } from 'lucide-react';
+import { ShoppingBag, Flame } from 'lucide-react';
 
 export default function App() {
   // Admin contact endpoints

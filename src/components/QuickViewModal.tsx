@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Check, MessageSquare, Plus, ShieldCheck, Flame } from 'lucide-react';
 import { Product, Currency } from '../types';
 import { formatCurrency } from '../utils/currency';
+import { Icon3DDustbagWarranty } from './icons3d';
 
 interface QuickViewModalProps {
   product: Product | null;
@@ -86,12 +87,13 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
               <span className="text-[#8c7a6b]">Guaranteed Anti-Peel</span>
             </div>
 
-            <div className="flex items-baseline gap-3">
+            <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3">
               <span className="text-xl font-bold text-[#c84224] tabular-nums">
                 {formatCurrency(product.priceNGN, currency)}
               </span>
-              <span className="text-[12px] text-[#6a4632]">
-                Includes complimentary dustbag
+              <span className="text-[12px] text-[#6a4632] inline-flex items-center gap-1.5 font-medium">
+                <Icon3DDustbagWarranty size="sm" />
+                <span>Includes complimentary dustbag & guarantee</span>
               </span>
             </div>
 

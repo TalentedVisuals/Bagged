@@ -3,6 +3,7 @@ import { X, Minus, Plus, Trash2, ShoppingBag, MessageSquare, Mail, ShieldCheck }
 import { CartItem, Currency, ShippingZone } from '../types';
 import { SHIPPING_RATES } from '../data/products';
 import { formatCurrency } from '../utils/currency';
+import { Icon3DDustbagWarranty } from './icons3d';
 import {
   generateOrderRef,
   createCartWhatsAppMessage,
@@ -344,9 +345,9 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </button>
               </div>
 
-              <div className="flex items-center justify-center gap-1.5 text-[11px] text-[#6a4632] pt-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#c84224]" />
-                <span>Includes free protective canvas dustbag</span>
+              <div className="flex items-center justify-center gap-2 text-[12px] text-[#5c3d2e] pt-1 font-medium">
+                <Icon3DDustbagWarranty size="sm" />
+                <span>Includes free protective canvas dustbag & guarantee</span>
               </div>
 
             </div>

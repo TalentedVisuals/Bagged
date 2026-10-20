@@ -211,9 +211,8 @@ const Icon3DShield: React.FC = () => (
         strokeLinejoin="round"
       />
 
-      {/* Polished Star Sparkle Glint on Shield Crest */}
-      <circle cx="34" cy="14" r="2.5" fill="#ffffff" />
-      <path d="M34 10V18M30 14H38" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" />
+      {/* Polished Solid Brass Rivet on Shield Crest */}
+      <circle cx="34" cy="14" r="2.2" fill="#fffbeb" stroke="#d97706" strokeWidth="0.8" />
     </svg>
   </div>
 );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ShieldCheck } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { Icon3DWarrantyMini } from './icons3d';
 
 interface FaqItem {
   question: string;
@@ -60,8 +61,8 @@ export const CareAndFaq: React.FC = () => {
               Details on genuine cowhide leather, worldwide DHL shipping, and custom bag orders.
             </p>
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#eee7db] border border-[#e2dad0] text-[12px] font-semibold text-[#c84224]">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#c84224]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#eee7db] border border-[#e2dad0] text-[12px] font-semibold text-[#c84224] shadow-xs">
+            <Icon3DWarrantyMini size="sm" />
             <span>Guaranteed Zero Peel Leather</span>
           </div>
         </div>

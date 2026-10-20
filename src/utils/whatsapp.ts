@@ -43,7 +43,7 @@ export function createCartWhatsAppMessage({
     )
     .join('\n\n');
 
-  return `✦ *BAGGED. — NEW BAG ORDER* ✦
+  return `■ *BAGGED. — NEW BAG ORDER* ■
 Order Code: *${orderRef}*
 
 *BUYER DETAILS:*
@@ -72,7 +72,7 @@ export function createBespokeWhatsAppMessage(req: BespokeCommission): string {
     ? `🎙️ *Voice Note:* Yes, I recorded a voice note (${req.voiceNote.duration}s) on the website`
     : `🎙️ *Voice Note:* None`;
 
-  return `✦ *BAGGED. — CUSTOM BAG REQUEST* ✦
+  return `■ *BAGGED. — CUSTOM BAG REQUEST* ■
 Order Code: *${req.trackingCode}*
 
 *MY CONTACT DETAILS:*

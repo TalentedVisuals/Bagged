@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Clock, MessageSquare, Check, Plus, Sparkles, Flame } from 'lucide-react';
+import { Clock, MessageSquare, Check, Plus, Flame } from 'lucide-react';
 import { Currency, CartItem } from '../types';
 import { formatCurrency } from '../utils/currency';
+import { Icon3DDustbagWarranty } from './icons3d';
 
 interface BespokeStudioProps {
   currency: Currency;
@@ -214,9 +215,11 @@ Please let me know if you have materials ready in your Ibadan workshop to make t
               <span>{selectedHardware.name}</span>
             </div>
 
-            <div className="pt-2 flex items-center gap-1.5 text-[12px] text-[#8c7a6b]">
-              <Sparkles className="w-3.5 h-3.5 text-[#c84224]" />
-              <span>Complimentary personalized dustbag + 10-year leather peel warranty</span>
+            <div className="mt-2.5 p-2.5 rounded-[10px] bg-[#fbf9f5] border border-[#e8ded1] flex items-center gap-3 text-[12px] text-[#5c3d2e] shadow-xs">
+              <Icon3DDustbagWarranty size="md" />
+              <span className="font-medium leading-tight">
+                Complimentary personalized dustbag + 10-year leather peel warranty
+              </span>
             </div>
           </div>
 

@@ -284,3 +284,17 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #8c7a6b;
 }
+
+/* 3D Animated Icons Keyframes */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(1.5deg);
+  }
+}
+
+.animate-float-gentle {
+  animation: floatGentle 4s ease-in-out infinite;
+}
